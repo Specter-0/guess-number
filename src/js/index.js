@@ -177,6 +177,7 @@ const game = {
      * @param {number} n input number
      */
     guess(n) {
+        if (!n) return
         if (!this._isStart) this._start()
 
         result = this._game.guess(n)
