@@ -14,6 +14,7 @@ input[type='number'],
 input[type="number"]:hover,
 input[type="number"]:focus {
     appearance: none;
+    outline: none;
     -moz-appearance: textfield;
 }
 
@@ -32,6 +33,12 @@ main {
     gap: 20px;
 }
 
+@media screen and (max-width: 720px) {
+    main {
+        flex-direction: column-reverse;
+    }
+}
+
 .panel {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
@@ -46,8 +53,8 @@ h2 {
 }
 
 #inp,
-#out {
-    width: 100%;
+#out,
+#max {
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -57,12 +64,21 @@ h2 {
     background-color: #11111C;
 }
 
+.inline {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#max {
+    min-width: 100px;
+}
+
 #out {
     height: 2.6rem;
 }
 
 .btn {
-    width: 100%;
     background-color: #4CAF50;
     color: #ffffff;
     padding: 12px 20px;
@@ -72,6 +88,18 @@ h2 {
     cursor: pointer;
 }
 
+.w100 {
+    width: 100%;
+}
+
 .btn:hover {
     background-color: #45a049;
+}
+
+.ok {
+    background-color: #2196f3;
+}
+
+.ok:hover {
+    background-color: #0b7dda;
 }

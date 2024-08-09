@@ -76,15 +76,16 @@ const fmtTime = (h, m, s) => {
     return `${ts(h)}:${ts(m)}:${ts(s)}`
 }
 
-const updateSwe = (h, m, s) =>
-    swe.innerText = fmtTime(h, m, s)
-
 /** Object with result text displayed to user */
 const txt = {
     "1": "Слишком много",
     "-1": "Слишком мало",
     "0": "Ты угадал число"
 }
+
+const settings = document.forms["settings"]
+
+const max = settings["max"]
 
 /** Game form */
 const guess = document.forms["guess"]
@@ -102,53 +103,64 @@ const swe = document.getElementById("stopwatch")
 const ste = document.getElementById("steps")
 
 /** Game instance */
-const game = new Game()
+const game = {
+    _game: new Game(),
+    _stopwatch: new Stopwatch((h, m, s) => swe.innerText = fmtTime(h, m, s)),
+    _isStart: false,
 
-/** Stopwatch instance */
-const stopwatch = new Stopwatch(updateSwe)
+    _reset() {
+        inp.max = this._game.max
+        this._game.reset()
+        this._stopwatch.reset()
+        ste.innerText = 0
+    },
+    _start() {
+        this._reset()
+        this._stopwatch.start()
+    },
+    _stop() {
+        this._stopwatch.stop()
+        this._isStart = false
+    },
+    get max() { return this._game.max },
+    get min() { return this._game.min },
+    setMax(v) {
+        this._game.max = v
+        this._reset()
+    },
+    guess(n) {
+        if (!this._isStart) {
+            this._start()
+            this._isStart = true
+        }
 
-/** Should reset game */
-let isNewGame = true
-
-const reset = _ => {
-    game.reset()
-    stopwatch.reset()
-    stopwatch.start()
-}
-
-/**
- * Set output text
- * @param {string} v output text key
- */
-const tSetOut = (v) => {
-    out.value = v
-    if (tId) clearTimeout(tId)
-    tId = setTimeout(_ => out.value = "", 2 * 1000)
+        result = this._game.guess(n)
+        if (result === 0) this._stop()
+        ste.innerText = this._game.steps
+        inp.value = ""
+        out.value = txt[result]
+    }
 }
 
 const act = e => {
     e.preventDefault()
     inp.focus()
-    if (!inp.value) return
+    game.guess(inp.value)
+}
 
-    if (isNewGame) {
-        reset()
-        isNewGame = false
-    }
-
-    const result = game.guess(inp.value)
-    if (result == 0) {
-        stopwatch.stop()
-        isNewGame = true
-    }
-    ste.innerText = game.steps
-    inp.value = ""
-    out.value = txt[result]
+const set = e => {
+    e.preventDefault()
+    inp.focus()
+    game.setMax(max.value)
 }
 
 // Preparing for work
 (
     _ => {
+        max.value = game.max
+        inp.max = game.max
+        inp.min = game.min
+        settings.addEventListener("submit", set)
         guess.addEventListener("submit", act)
         inp.focus()
     }
