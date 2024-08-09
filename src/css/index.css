@@ -4,6 +4,19 @@
     font-size: 20px;
 }
 
+/* Remove arrows for number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -20,7 +33,7 @@ main {
 }
 
 .panel {
-    background-color: rgba(255, 255, 255, 0.01);
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 20px;
     width: 300px;
@@ -32,7 +45,8 @@ h2 {
     margin-top: 0;
 }
 
-#inp, #out {
+#inp,
+#out {
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
