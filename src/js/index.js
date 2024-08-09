@@ -43,7 +43,6 @@ class Game {
         this.#steps++
         if (n > this.#num) return 1
         if (n < this.#num) return -1
-        //this.reset()
         return 0 // equal
     }
 }
@@ -101,10 +100,8 @@ class Stopwatch {
  * @param {number} s seconds
  * @returns formated string
  */
-const fmtTime = (h, m, s) => {
-    const ts = n => n.toString().padStart(2, '0')
-    return `${ts(h)}:${ts(m)}:${ts(s)}`
-}
+const fmtTime = (h, m, s) =>
+    [h, m, s].map(n => n.toString().padStart(2, '0')).join(":")
 
 /** Object with result text displayed to user */
 const txt = {

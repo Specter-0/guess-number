@@ -3,9 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Угадай число</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -14,7 +12,6 @@
     <main>
         <div class="panel">
             <h2>Информация</h2>
-
             <form id="settings">
                 <label for="max">Максимальное число</label>
                 <span class="inline">
@@ -27,13 +24,12 @@
             <p>Кол-во шагов: <span id="steps">0</span></p>
         </div>
         <div class="panel">
-            <h2>Угадайте число </h2>
+            <h2>Угадай число </h2>
             <form id="guess">
                 <label for="inp">Введите число</label>
                 <input class="w100" id="inp" type="number">
                 <label for="out">Результат</label>
-                <!-- <output class="w100" id="out"></output> -->
-                <input class="w100" id="out" disabled></input>
+                <input class="w100" id="out" disabled>
                 <input class="btn w100" type="submit" value="Угадать">
             </form>
         </div>
