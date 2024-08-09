@@ -26,7 +26,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background: #11111C;
-    background: radial-gradient(#1c1c2e, #11111C);
+    background: radial-gradient(#222239, #0a0a10);
 }
 
 main {
@@ -100,4 +100,12 @@ h2 {
 
 .ok:hover {
     background-color: #0b7dda;
+}
+
+.blur {
+    position: absolute;
+    min-height: 100vh;
+    min-width: 100vw;
+    filter: blur(1px);
+    z-index: -100;
 }
