@@ -27,7 +27,6 @@ body {
     align-items: center;
     min-height: 100vh;
     background: #11111C;
-    background: radial-gradient(#222239, #0a0a10);
 }
 
 main {
@@ -59,9 +58,7 @@ h2 {
     margin-top: 0;
 }
 
-#inp,
-#out,
-#max {
+input {
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -69,6 +66,11 @@ h2 {
     border-radius: 4px;
     box-sizing: border-box;
     background-color: #11111C;
+    transition: all 0.3s;
+}
+
+input:focus {
+    border-color: #0b7dda;
 }
 
 #max {
@@ -89,11 +91,11 @@ h2 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .btn:hover {
     background-color: #45a049;
-    transform: scale(1.01);
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -103,12 +105,4 @@ h2 {
 
 .ok:hover {
     background-color: #0b7dda;
-}
-
-.blur {
-    position: absolute;
-    min-height: 100vh;
-    min-width: 100vw;
-    filter: blur(1px);
-    z-index: -100;
 }
