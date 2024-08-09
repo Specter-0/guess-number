@@ -1,31 +1,37 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Угадай число</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
-<main>
-    <div class="panel">
-        <h2>Информация</h2>
-        <p>This is the content of the first panel. You can add any information here.</p>
-    </div>
-    <div class="panel">
-        <h2>Угадайте число </h2>
-        <form>
-            <label for="inp">Введите число</label>
-            <input id="inp" type="number">
-            <label for="out">Результат</label>
-            <output id="out"></output>
-            <input class="btn" type="submit" value="Угадать">
-        </form>
-    </div>
-</main>
 
-<script src="js/index.js"></script>
+<body>
+    <main>
+        <div class="panel">
+            <h2>Информация</h2>
+            <p>Минимальное число: 0</p>
+            <p>Максимальное число: 100</p>
+            <p>Секундомер: <span id="stopwatch">00:00:00</span></p>
+            <p>Кол-во шагов: <span id="steps">0</span></p>
+        </div>
+        <div class="panel">
+            <h2>Угадайте число </h2>
+            <form id="guess">
+                <label for="inp">Введите число</label>
+                <input id="inp" type="number">
+                <label for="out">Результат</label>
+                <output id="out"></output>
+                <input class="btn" type="submit" value="Угадать">
+            </form>
+        </div>
+    </main>
+
+    <script src="js/index.js"></script>
 </body>
+
 </html>
