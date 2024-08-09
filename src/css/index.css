@@ -93,6 +93,8 @@ h2 {
 
 .btn:hover {
     background-color: #45a049;
+    transform: scale(1.01);
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
 }
 
 .ok {
