@@ -39,6 +39,10 @@ main {
     }
 }
 
+.w100 {
+    width: 100%;
+}
+
 .panel {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
@@ -64,18 +68,14 @@ h2 {
     background-color: #11111C;
 }
 
-.inline {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-
 #max {
     min-width: 100px;
 }
 
-#out {
-    height: 2.6rem;
+.inline {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
 .btn {
@@ -86,10 +86,6 @@ h2 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.w100 {
-    width: 100%;
 }
 
 .btn:hover {

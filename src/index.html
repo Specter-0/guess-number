@@ -14,14 +14,15 @@
     <main>
         <div class="panel">
             <h2>Информация</h2>
+
             <form id="settings">
                 <label for="max">Максимальное число</label>
                 <span class="inline">
                     <input type="number" name="max" id="max" value="100">
                     <input class="btn ok" type="submit" value="Ок">
                 </span>
-
             </form>
+            <p>Минимальное число: 0</p>
             <p>Секундомер: <span id="stopwatch">00:00:00</span></p>
             <p>Кол-во шагов: <span id="steps">0</span></p>
         </div>
@@ -31,7 +32,8 @@
                 <label for="inp">Введите число</label>
                 <input class="w100" id="inp" type="number">
                 <label for="out">Результат</label>
-                <output class="w100" id="out"></output>
+                <!-- <output class="w100" id="out"></output> -->
+                <input class="w100" id="out" disabled></input>
                 <input class="btn w100" type="submit" value="Угадать">
             </form>
         </div>
