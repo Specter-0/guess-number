@@ -153,185 +153,342 @@ class Stopwatch {
     }
 }
 
-/**
- * Convert raw time to string
- * @param {number} h hours
- * @param {number} m minutes
- * @param {number} s seconds
- * @returns {string} formated string
- */
-const fmtTime = (h, m, s) =>
-    [h, m, s].map(n => n.toString().padStart(2, '0')).join(":")
+/** Handles the settings form submission and value retrieval. */
+class SettingsForm {
+    /**
+     * @type {HTMLFormElement}
+     * @private
+     */
+    #form
 
-/** Object with result text displayed to user */
-const txt = {
-    "1": "Слишком много",
-    "-1": "Слишком мало",
-    "0": "Ты угадал число!"
+    /**
+     * Creates an instance of SettingsForm.
+     * @param {HTMLFormElement} form - The settings form element.
+     * @param {Function} onSubmit - Callback function to be called when the form is submitted.
+     */
+    constructor(form, onSubmit) {
+        this.#form = form;
+        this.#form.addEventListener("submit", e => {
+            e.preventDefault();
+            onSubmit(this.#form["max"].value);
+        });
+    }
+
+    /**
+     * Sets the value of the 'max' field in the form.
+     * @param {number} v - The new value to set for the 'max' field.
+     */
+    setMax(v) {
+        this.#form["max"].value = v;
+    }
 }
 
-/**
- * Settings form
- * @type {HTMLFormElement}
- */
-const settings = document.forms["settings"]
-
-/**
- * Max num field
- * @type {HTMLInputElement}
- */
-const max = settings["max"]
-
-/**
- * Game form
- * @type {HTMLFormElement}
- */
-const guess = document.forms["guess"]
-
-/**
- * Number entry field
- * @type {HTMLInputElement}
- */
-const inp = guess["inp"]
-
-/**
- * Result field
- * @type {HTMLInputElement}
- */
-const out = guess["out"]
-
-/**
- * Stopwatch element
- * @type {HTMLSpanElement}
- */
-const swe = document.getElementById("stopwatch")
-
-/**
- * Step counter element
- * @type {HTMLSpanElement}
- */
-const ste = document.getElementById("steps")
-
-/** Game instance */
-const game = {
+/** Panel for displaying information and handling settings. */
+class InfoPanel {
     /**
-     * The main game instance
+     * @type {SettingsForm}
+     * @private
+     */
+    #form
+
+    /**
+     * @type {HTMLElement}
+     * @private
+     */
+    #stopwatch
+
+    /**
+     * @type {HTMLElement}
+     * @private
+     */
+    #steps
+
+    /**
+     * Creates an instance of InfoPanel.
+     * @param {SettingsForm} settingsForm - The SettingsForm instance for the settings form.
+     * @param {HTMLElement} stopwatchElement - The element to display the stopwatch.
+     * @param {HTMLElement} stepsElement - The element to display the step count.
+     */
+    constructor(settingsForm, stopwatchElement, stepsElement) {
+        this.#form = settingsForm
+        this.#stopwatch = stopwatchElement
+        this.#steps = stepsElement
+    }
+
+    /**
+     * Convert raw time to string
+     * @private
+     * @static
+     * @param {number} h - Hours
+     * @param {number} m - Minutes
+     * @param {number} s - Seconds
+     * @returns {string} Formatted time string in the format "HH:MM:SS"
+     */
+    static #fmtTime = (h, m, s) =>
+        [h, m, s].map(n => n.toString().padStart(2, '0')).join(":")
+
+    /**
+     * Sets the time displayed in the stopwatch element.
+     * @param {number} h - Hours
+     * @param {number} m - Minutes
+     * @param {number} s - Seconds
+     */
+    setTime(h, m, s) {
+        this.#stopwatch.innerText = InfoPanel.#fmtTime(h, m, s)
+    }
+
+    /**
+     * Sets the number of steps displayed.
+     * @param {string|number} n - The number of steps to be displayed.
+     */
+    setSteps(n) {
+        this.#steps.innerText = n
+    }
+
+    /**
+     * Sets the value of the 'max' field in the settings form.
+     * @param {number} v - The new value to set for the 'max' field.
+     */
+    setMax(v) {
+        this.#form.setMax(v)
+    }
+}
+
+/** Handles the game form submission and value management. */
+class GameForm {
+    /**
+     * @type {HTMLFormElement}
+     * @private
+     */
+    #form
+
+    /**
+     * Creates an instance of GameForm.
+     * @param {HTMLFormElement} form - The game form element.
+     * @param {number} min - The initial minimum value for the input field.
+     * @param {number} max - The initial maximum value for the input field.
+     * @param {Function} onSubmit - Callback function to be called when the form is submitted.
+     */
+    constructor(form, min, max, onSubmit) {
+        this.#form = form;
+        this.#form["inp"].min = min;
+        this.#form["inp"].max = max;
+
+        this.#form.addEventListener("submit", e => {
+            e.preventDefault();
+            const inp = this.#form["inp"].value
+            if (!inp) return
+            this.#form["out"].value = onSubmit(inp)
+        });
+    }
+
+    /** Clears the input fields of the game form. */
+    clearInput() {
+        this.#form["inp"].value = "";
+    }
+
+    /** Clears the output fields of the game form. */
+    clearOutput() {
+        this.#form["out"].value = "";
+    }
+
+    /**
+     * Updates the minimum and maximum values for the input field.
+     * @param {number} min - The new minimum value.
+     * @param {number} max - The new maximum value.
+     */
+    setLimits(min, max) {
+        this.#form["inp"].min = min;
+        this.#form["inp"].max = max;
+    }
+
+    focusInput() {
+        this.#form["inp"].focus()
+    }
+}
+
+/** Panel for handling user input and displaying output. */
+class GamePanel {
+    /**
+     * @type {GameForm}
+     * @private
+     */
+    #gameForm
+
+    /**
+     * Creates an instance of GamePanel.
+     * @param {GameForm} gameForm - The GameForm instance for the game form.
+     */
+    constructor(gameForm) {
+        this.#gameForm = gameForm;
+    }
+
+    /** Clears the input fields of the game form. */
+    clearInput() {
+        this.#gameForm.clearInput()
+    }
+
+    /** Clears the output fields of the game form. */
+    clearOutput() {
+        this.#gameForm.clearOutput()
+    }
+
+    /**
+     * Updates the minimum and maximum values for the input field.
+     * @param {number} min - The new minimum value.
+     * @param {number} max - The new maximum value.
+     */
+    setLimits(min, max) {
+        this.#gameForm.setLimits(min, max)
+    }
+
+    focusInput() {
+        this.#gameForm.focusInput()
+    }
+}
+
+/** Controls the game logic and manages interactions between different components. */
+class GameController {
+    /**
+     * @type {InfoPanel}
+     * @private
+     */
+    #infoPanel
+
+    /**
+     * @type {GamePanel}
+     * @private
+     */
+    #gamePanel
+
+    /**
      * @type {Game}
      * @private
      */
-    _game: new Game(),
+    #game
 
     /**
-     * Stopwatch instance to track game time
      * @type {Stopwatch}
      * @private
      */
-    _stopwatch: new Stopwatch((h, m, s) => swe.innerText = fmtTime(h, m, s)),
+    #stopwatch
 
     /**
-     * Flag to indicate if the game has started
      * @type {boolean}
      * @private
      */
-    _isStart: false,
+    #isStart
 
     /**
-     * Reset the game
+     * Text responses for different game outcomes.
+     * @type {Object.<string, string>}
      * @private
+     * @static
      */
-    _reset() {
-        inp.max = this._game.max
-        this._game.reset()
-        this._stopwatch.reset()
-        ste.innerText = 0
-        out.value = ""
-    },
-
-    /**
-     * Starts new game session
-     * @private
-     */
-    _start() {
-        this._reset()
-        this._stopwatch.start()
-        this._isStart = true
-    },
-
-    /**
-     * Stop current game session
-     * @private
-     */
-    _stop() {
-        this._stopwatch.stop()
-        this._isStart = false
-    },
-
-    /**
-     * Minimal guessed number
-     * @return {number} minimal number
-     */
-    get min() {
-        return this._game.min
-    },
-
-    /**
-     * Minimal guessed number
-     * @param {number} v new minimal number
-     */
-    set min(v) {
-        this._game.min = v
-        this._reset()
-    },
-
-    /**
-     * Maximal guessed number
-     * @return {number} maximal number
-     */
-    get max() {
-        return this._game.max
-    },
-
-    /**
-     * Maximal guessed number
-     * @param {number} v new maximal number
-     */
-    set max(v) {
-        this._game.max = v
-        this._reset()
-    },
-
-    /**
-     * Try to guess number
-     * @param {number} n input number
-     */
-    guess(n) {
-        if (!n) return
-        if (!this._isStart) this._start()
-
-        const result = this._game.guess(n)
-        if (result === 0) this._stop()
-        ste.innerText = this._game.steps
-        inp.value = ""
-        out.value = txt[result]
+    static #txt = {
+        "1": "Слишком много",
+        "-1": "Слишком мало",
+        "0": "Ты угадал число!"
     }
-};
 
-// Preparing for work
-(
-    _ => {
-        max.value = game.max
-        inp.max = game.max
-        inp.min = game.min
-        settings.addEventListener("submit", e => {
-            e.preventDefault()
-            inp.focus()
-            game.max = max.value
-        })
-        guess.addEventListener("submit", e => {
-            e.preventDefault()
-            inp.focus()
-            game.guess(inp.value)
-        })
-        inp.focus()
+    /**
+     * Creates a new GameController instance.
+     * @param {Object} cfg - Configuration object for the game.
+     * @param {number} cfg.min - Minimum value for the game range.
+     * @param {number} cfg.max - Maximum value for the game range.
+     * @param {HTMLFormElement} cfg.settingsForm - The settings form element.
+     * @param {HTMLElement} cfg.stopwatchElem - The stopwatch display element.
+     * @param {HTMLElement} cfg.stepsElem - The step counter display element.
+     * @param {HTMLFormElement} cfg.gameForm - The game form element.
+     */
+    constructor(cfg) {
+        this.#game = new Game(cfg.min, cfg.max)
+
+        const settingsForm =
+            new SettingsForm(cfg.settingsForm, v => {
+                this.#setMax(v)
+                this.#gamePanel.focusInput()
+            })
+        this.#infoPanel = new InfoPanel(settingsForm, cfg.stopwatchElem, cfg.stepsElem)
+        this.#infoPanel.setMax(this.#game.max)
+
+        const gameForm =
+            new GameForm(cfg.gameForm, this.#game.min, this.#game.max, n => this.#onGuess(n))
+        this.#gamePanel = new GamePanel(gameForm)
+
+        this.#isStart = false
+
+        this.#stopwatch = new Stopwatch((h, m, s) => this.#infoPanel.setTime(h, m, s))
+
+        this.#gamePanel.focusInput()
     }
-)()
+
+    /**
+     * Set the maximum value for the game.
+     * @param {number} v - The new maximum value for the game.
+     */
+    #setMax(v) {
+        this.#game.max = v
+        this.#reset()
+    }
+
+    /**
+     * Resets the game state.
+     * @private
+     */
+    #reset() {
+        this.#gamePanel.setLimits(0, this.#game.max)
+        this.#game.reset()
+        this.#stopwatch.reset()
+        this.#infoPanel.setSteps(0)
+        this.#gamePanel.clearOutput()
+    }
+
+    /**
+     * Starts a new game.
+     * @private
+     */
+    #start() {
+        this.#reset()
+        this.#stopwatch.start()
+        this.#isStart = true
+    }
+
+    /**
+     * Stops the current game.
+     * @private
+     */
+    #stop() {
+        this.#stopwatch.stop()
+        this.#isStart = false
+    }
+
+    /**
+     * Handles a guess attempt.
+     * @param {number} n - The guessed number.
+     * @returns {string} The result message.
+     * @private
+     */
+    #onGuess(n) {
+        if (!this.#isStart) this.#start()
+
+        const result = this.#game.guess(n)
+        if (result === 0) this.#stop()
+        this.#infoPanel.setSteps(this.#game.steps)
+        this.#gamePanel.clearInput()
+        this.#gamePanel.focusInput()
+        return GameController.#txt[result]
+    }
+}
+
+// Game config
+const cfg = {
+    min: 0,
+    max: 100,
+    stopwatchElem: document.getElementById("stopwatch"),
+    stepsElem: document.getElementById("steps"),
+    settingsForm: document.forms["settings"],
+    gameForm: document.forms["guess"]
+}
+
+new GameController(cfg)
