@@ -84,7 +84,7 @@ input:focus {
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     padding: 12px 20px;
     margin: 8px 0;
@@ -95,14 +95,42 @@ input:focus {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: rgba(255, 255, 255, 0.05);
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
 }
 
-.ok {
+.lime {
+    background-color: #4CAF50;
+}
+
+.lime:hover {
+    background-color: #45a049;
+}
+
+.blue {
     background-color: #2196f3;
 }
 
-.ok:hover {
+.blue:hover {
     background-color: #0b7dda;
+}
+
+.orange {
+    background-color: #ff9800;
+}
+
+.orange:hover {
+    background: #e68a00;
+}
+
+.red {
+    background-color: #f44336;
+}
+
+.red:hover {
+    background: #da190b;
+}
+
+.ct {
+    text-align: center;
 }

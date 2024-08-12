@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <main>
+        <div class="panel">
+            <h2 class="ct">Информация</h2>
+            <p>Минимальное значение: <span id="min">0</span></p>
+            <p>Максимальное значение: <span id="max">100</span></p>
+            <p>Секундомер: <span id="stopwatch">00:00:00</span></p>
+            <p>Количество шагов: <span id="steps">0</span></p>
+        </div>
+        <div class="panel">
+            <h2 class="ct">Угадай число</h2>
+            <form id="game">
+                <label for="inp">Введите число</label>
+                <input class="w100" id="inp" name="inp" type="number">
+                <label for="out">Результат</label>
+                <input class="w100" id="out" name="out" disabled>
+                <input class="btn w100 lime" type="submit" value="Угадать">
+            </form>
+        </div>
+    </main>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
