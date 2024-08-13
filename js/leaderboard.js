@@ -1,4 +1,4 @@
-const cfg = {
+const ldCfg = {
     leaderboardElId: "leaderboard"
 }
 
@@ -23,7 +23,7 @@ const storage = {
 
 const leaderboard = {
     _storage: storage,
-    _leaderboard: document.getElementById(cfg.leaderboardElId),
+    _leaderboard: document.getElementById(ldCfg.leaderboardElId),
 
     _row(place, nick, points) {
         const row = document.createElement("tr")
