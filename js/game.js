@@ -401,6 +401,23 @@ const gameForm = {
     }
 }
 
+const storage = {
+    _nextId: 0,
+
+    init() {
+        this._nextId = localStorage.getItem("nextId") ?? 0
+    },
+
+    save(name, points) {
+        const v = JSON.stringify({
+            name: name,
+            points: points
+        })
+        localStorage.setItem(this._nextId++, v)
+        localStorage.setItem("nextId", this._nextId)
+    }
+}
+
 /** Controller for game, handling interactions between game components. */
 const gameController = {
     /** @private */
@@ -450,7 +467,6 @@ const gameController = {
     /** Stop game */
     _stop() {
         this._stopwatch.stop()
-        console.log(this.points);
     },
 
     /**
@@ -477,7 +493,7 @@ const gameController = {
         const t = this._stopwatch.current / 1000
         const k = 1000
 
-        return ((max - min) / (t + steps) * k).toFixed(0)
+        return (max - min) / (t + steps) * k
     }
 }
 gameController.init()
