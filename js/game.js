@@ -465,19 +465,19 @@ const gameController = {
 
         const r = this._game.guess(n)
         if (r === result.EQUAL) this._stop()
+
+        this._infoPanel.steps = this._game.steps
         return cfg.txt[r]
     },
 
     get points() {
-        if (this._game.isStart)
-            throw Error("Unable to count points until game is over!")
-
-        const a = this._game.min
-        const b = this._game.max
+        const min = this._game.min
+        const max = this._game.max
         const steps = this._game.steps
         const t = this._stopwatch.current / 1000
+        const k = 1000
 
-        return ((b - a) / (t + steps)).toFixed(3)
+        return ((max - min) / (t + steps) * k).toFixed(0)
     }
 }
 gameController.init()
