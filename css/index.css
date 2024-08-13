@@ -19,7 +19,8 @@ input[type="number"]:focus {
     -moz-appearance: textfield;
 }
 
-body {
+body,
+.container {
     margin: 0;
     padding: 0;
     display: flex;
@@ -133,4 +134,28 @@ input:focus {
 
 .ct {
     text-align: center;
+}
+
+#dialogue {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    z-index: 100;
+
+}
+
+#dialogue .container {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#dialogue .container .panel {
+    background-color: #11111C;
+}
+
+.hiden {
+    display: none;
 }
