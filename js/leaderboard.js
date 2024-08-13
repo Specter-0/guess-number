@@ -16,7 +16,11 @@ const storage = {
 
     get leaderboard() {
         const leaderboard = this._extract()
-        leaderboard.sort((a, b) => a.points < b.points)
+        leaderboard.sort((a, b) => {
+            if (a.points < b.points) return 1
+            if (a.points > b.points) return -1
+            return 0
+        })
         return leaderboard
     }
 }
@@ -38,7 +42,6 @@ const leaderboard = {
 
     init() {
         const lb = storage.leaderboard
-        console.log(lb);
 
         for (let i = 0; i < lb.length; i++) {
             const e = lb[i];
