@@ -50,27 +50,41 @@ try {
 }
 
 /** Game config */
-const cfg = {
-    min: args.min,
-    max: args.max,
-    minElId: "min",
-    maxElId: "max",
-    stopwatchElId: "stopwatch",
-    stepsElId: "steps",
-    gameFormId: "game",
-    dialogueElId: "dialogue",
-    pointsElId: "points",
-    saveFormId: "save",
-    yesBtnId: "yes",
-    noBtnId: "no",
-    hideClass: "hiden",
+const gCfg = {
+    /** Game panel */
+    gp: {
+        min: args.min,
+        max: args.max,
+        gameFormId: "game",
+        inputElId: "inp",
+        outputElId: "out"
+    },
+    /** Info panel */
+    ip: {
+        minElId: "min",
+        maxElId: "max",
+        stopwatchElId: "stopwatch",
+        stepsElId: "steps",
+    },
+    /** Save for leaderboard */
+    sv: {
+        dialogueElId: "dialogue",
+        pointsElId: "points",
+        saveFormId: "save",
+        yesBtnId: "yes",
+        noBtnId: "no",
+        hideClass: "hiden",
+        nextIdKey: "nextId",
+        defaultNick: "Guess"
+    },
+    /** Output text */
     txt: {
         equal: "Ты угадал число!",
         greater: "Слишком много",
         less: "Слишком мало"
     }
 }
-Object.freeze(cfg)
+Object.freeze(gCfg)
 
 /** Possible comparison results. */
 const result = {
@@ -295,22 +309,22 @@ const infoPanel = {
      * @type {HTMLElement}
      * @private
      */
-    _min: document.getElementById(cfg.minElId),
+    _min: document.getElementById(gCfg.ip.minElId),
     /**
      * @type {HTMLElement}
      * @private
      */
-    _max: document.getElementById(cfg.maxElId),
+    _max: document.getElementById(gCfg.ip.maxElId),
     /**
      * @type {HTMLElement}
      * @private
      */
-    _stopwatch: document.getElementById(cfg.stopwatchElId),
+    _stopwatch: document.getElementById(gCfg.ip.stopwatchElId),
     /**
      * @type {HTMLElement}
      * @private
      */
-    _steps: document.getElementById(cfg.stepsElId),
+    _steps: document.getElementById(gCfg.ip.stepsElId),
 
     /**
      * Set current time on stopwatch display.
@@ -345,7 +359,7 @@ const gameForm = {
      * @type {HTMLFormElement}
      * @private
      */
-    _form: document.forms[cfg.gameFormId],
+    _form: document.forms[gCfg.gp.gameFormId],
 
     /**
      * @type {function|null}
@@ -370,14 +384,16 @@ const gameForm = {
         e.preventDefault()
         if (this._onSubmit === null) return
 
-        const inp = this._form["inp"].value
+        const inp = this._form[gCfg.gp.inputElId].value
         if (!inp) return
-        this._form.out.value = this._onSubmit(inp)
+        this._form[gCfg.gp.outputElId].value =
+            this._onSubmit(inp)
     },
 
     /** Initialize form. */
     init() {
-        this._form.addEventListener("submit", e => this._handleSubmit(e))
+        this._form.addEventListener("submit",
+            e => this._handleSubmit(e))
     },
 
     /**
@@ -386,24 +402,24 @@ const gameForm = {
      * @param {number} max - Maximum value for input.
      */
     setLimits(min, max) {
-        const inp = this._form.inp
+        const inp = this._form[gCfg.gp.inputElId]
         inp.min = min
         inp.max = max
     },
 
     /** Clear input field value. */
     clrInput() {
-        this._form.inp.value = ""
+        this._form[gCfg.gp.inputElId].value = ""
     },
 
     /** Clear output field value. */
     clrOutput() {
-        this._form.out.value = ""
+        this._form[gCfg.gp.outputElId].value = ""
     },
 
     /** Focus input field. */
     focusInput() {
-        this._form.inp.focus()
+        this._form[gCfg.gp.inputElId].focus()
     }
 }
 
@@ -411,7 +427,8 @@ const storage = {
     _nextId: 0,
 
     init() {
-        this._nextId = localStorage.getItem("nextId") ?? 0
+        this._nextId =
+            localStorage.getItem(gCfg.sv.nextIdKey) ?? 0
     },
 
     save(name, points) {
@@ -420,7 +437,7 @@ const storage = {
             points: points
         })
         localStorage.setItem(this._nextId++, v)
-        localStorage.setItem("nextId", this._nextId)
+        localStorage.setItem(gCfg.sv.nextIdKey, this._nextId)
     }
 }
 
@@ -429,7 +446,7 @@ const saveForm = {
      * @type {HTMLFormElement}
      * @private
      */
-    _form: document.forms[cfg.saveFormId],
+    _form: document.forms[gCfg.sv.saveFormId],
 
     _onYes: null,
     _onNo: null,
@@ -443,7 +460,8 @@ const saveForm = {
     },
 
     init() {
-        this._form.addEventListener("submit", e => this._onSubmit(e))
+        this._form.addEventListener(
+            "submit", e => this._onSubmit(e))
     },
 
     /**
@@ -452,18 +470,18 @@ const saveForm = {
      */
     _onSubmit(e) {
         e.preventDefault()
-        if (e.submitter.id === cfg.noBtnId)
+        if (e.submitter.id === gCfg.sv.noBtnId)
             return this._onNo()
 
         let nick = this._form.nick.value
-        if (!nick) nick = "Guess"
+        if (!nick) nick = gCfg.sv.defaultNick
         return this._onYes(nick)
     }
 }
 
 const dialogue = {
-    _dialogue: document.getElementById(cfg.dialogueElId),
-    _points: document.getElementById(cfg.pointsElId),
+    _dialogue: document.getElementById(gCfg.sv.dialogueElId),
+    _points: document.getElementById(gCfg.sv.pointsElId),
     _saveForm: saveForm,
     _onYes: null,
 
@@ -482,11 +500,11 @@ const dialogue = {
 
     show(points) {
         this._points.innerText = points
-        this._dialogue.classList.remove(cfg.hideClass)
+        this._dialogue.classList.remove(gCfg.sv.hideClass)
     },
 
     _hide() {
-        this._dialogue.classList.add(cfg.hideClass)
+        this._dialogue.classList.add(gCfg.sv.hideClass)
     }
 }
 
@@ -518,7 +536,7 @@ const gameController = {
 
     /** Initialize game controller and set up event handlers. */
     init() {
-        this._setLimits(cfg.min, cfg.max)
+        this._setLimits(gCfg.gp.min, gCfg.gp.max)
 
         this._dialogue.onYes = nick => this._onSave(nick)
         this._dialogue.init()
@@ -573,7 +591,7 @@ const gameController = {
         if (r === result.EQUAL) this._stop()
 
         this._infoPanel.steps = this._game.steps
-        return cfg.txt[r]
+        return gCfg.txt[r]
     },
 
     _onSave(nick) {
