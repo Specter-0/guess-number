@@ -165,11 +165,21 @@ input:focus {
     width: auto;
 }
 
-.theader td {
-    font-weight: bold;
+table {
+    max-width: 300px;
+    border: #0b7dda;
+    border-collapse: collapse;
+}
+
+thead tr th {
     text-align: center;
 }
 
-table {
-    max-width: 300px;
+thead tr th:nth-child(2) {
+    width: 90%;
+}
+
+tbody tr th {
+    padding: 7px 0px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
 }
