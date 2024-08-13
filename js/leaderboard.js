@@ -1,5 +1,8 @@
 const lbCfg = {
-    leaderboardElId: "leaderboard"
+    leaderboardElId: "leaderboard",
+    mainPanelElId: "main",
+    emptyPanelElId: "empty",
+    hideClass: "hiden"
 }
 
 const storage = {
@@ -26,6 +29,9 @@ const storage = {
 }
 
 const leaderboard = {
+    _mainPanel: document.getElementById(lbCfg.mainPanelElId),
+    _emptyPanel: document.getElementById(lbCfg.emptyPanelElId),
+
     _storage: storage,
     _leaderboard: document.getElementById(lbCfg.leaderboardElId),
 
@@ -40,8 +46,14 @@ const leaderboard = {
         return row
     },
 
+    _onEmpty() {
+        this._mainPanel.classList.add(lbCfg.hideClass)
+        this._emptyPanel.classList.remove(lbCfg.hideClass)
+    },
+
     init() {
         const lb = storage.leaderboard
+        if (lb.length === 0) this._onEmpty()
 
         for (let i = 0; i < lb.length; i++) {
             const e = lb[i];
