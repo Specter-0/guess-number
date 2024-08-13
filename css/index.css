@@ -167,6 +167,7 @@ input:focus {
 
 .theader td {
     font-weight: bold;
+    text-align: center;
 }
 
 table {
