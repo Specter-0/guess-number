@@ -4,8 +4,7 @@
  * @throws {RangeError} if `max` is less than or equal to `min`.
  * @returns {Object} Object containing `min` and `max` values.
  * @example
- * const v = parseArgs("https://example.com?min=10&max=20") 
- * console.log(v) // => { min: 10, max: 20 }
+ * parseArgs("https://example.com?min=10&max=20") // => { min: 10, max: 20 }
  */
 const parseArgs = () => {
     const vars = location.search
@@ -131,7 +130,7 @@ const game = {
      * @returns {number} Minimum value.
      */
     get min() {
-        this._min
+        return this._min
     },
 
     /**
@@ -211,7 +210,7 @@ const stopwatch = {
      * @type {number}
      * @private
      */
-    _diff: 0,
+    _elapsed: 0,
 
     /**
      * @type {Function | null}
@@ -224,6 +223,8 @@ const stopwatch = {
      * @returns {number}
      */
     get current() {
+        if (this._timerId === null)
+            return this._elapsed
         return Date.now() - this._startTime
     },
 
@@ -247,14 +248,14 @@ const stopwatch = {
     /** Start stopwatch, if it's not already running. */
     start() {
         if (this._timerId !== null) return;
-        this._startTime = Date.now() - this._diff;
+        this._startTime = Date.now() - this._elapsed;
         this._timerId = setInterval(_ => this._update(), 1000);
     },
 
     /** Stop stopwatch and record elapsed time. */
     stop() {
         if (this._timerId === null) return
-        this._diff = Date.now() - this._startTime
+        this._elapsed = Date.now() - this._startTime
         clearInterval(this._timerId)
         this._timerId = null
     },
@@ -262,7 +263,7 @@ const stopwatch = {
     /** Stop stopwatch and reset elapsed time to zero. */
     reset() {
         this.stop()
-        this._diff = 0
+        this._elapsed = 0
         if (this._onUpdate === null) return
         this._onUpdate(0)
     }
@@ -402,13 +403,11 @@ const gameForm = {
 
 /** Controller for game, handling interactions between game components. */
 const gameController = {
-    // UI
     /** @private */
     _infoPanel: infoPanel,
     /** @private */
     _gameForm: gameForm,
 
-    // Game components
     /** @private */
     _game: game,
     /** @private */
@@ -451,6 +450,7 @@ const gameController = {
     /** Stop game */
     _stop() {
         this._stopwatch.stop()
+        console.log(this.points);
     },
 
     /**
@@ -466,6 +466,18 @@ const gameController = {
         const r = this._game.guess(n)
         if (r === result.EQUAL) this._stop()
         return cfg.txt[r]
+    },
+
+    get points() {
+        if (this._game.isStart)
+            throw Error("Unable to count points until game is over!")
+
+        const a = this._game.min
+        const b = this._game.max
+        const steps = this._game.steps
+        const t = this._stopwatch.current / 1000
+
+        return ((b - a) / (t + steps)).toFixed(3)
     }
 }
 gameController.init()
