@@ -159,3 +159,16 @@ input:focus {
 .hiden {
     display: none;
 }
+
+.leaderboard {
+    min-width: 300px;
+    width: auto;
+}
+
+.theader td {
+    font-weight: bold;
+}
+
+table {
+    max-width: 300px;
+}
