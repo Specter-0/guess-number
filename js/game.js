@@ -58,6 +58,12 @@ const cfg = {
     stopwatchElId: "stopwatch",
     stepsElId: "steps",
     gameFormId: "game",
+    dialogueElId: "dialogue",
+    pointsElId: "points",
+    saveFormId: "save",
+    yesBtnId: "yes",
+    noBtnId: "no",
+    hideClass: "hiden",
     txt: {
         equal: "Ты угадал число!",
         greater: "Слишком много",
@@ -418,21 +424,104 @@ const storage = {
     }
 }
 
+const saveForm = {
+    /**
+     * @type {HTMLFormElement}
+     * @private
+     */
+    _form: document.forms[cfg.saveFormId],
+
+    _onYes: null,
+    _onNo: null,
+
+    set onYes(fn) {
+        this._onYes = fn
+    },
+
+    set onNo(fn) {
+        this._onNo = fn
+    },
+
+    init() {
+        this._form.addEventListener("submit", e => this._onSubmit(e))
+    },
+
+    /**
+     * On form submit
+     * @param {SubmitEvent} e Event
+     */
+    _onSubmit(e) {
+        e.preventDefault()
+        if (e.submitter.id === cfg.noBtnId)
+            return this._onNo()
+
+        let nick = this._form.nick.value
+        if (!nick) nick = "Guess"
+        return this._onYes(nick)
+    }
+}
+
+const dialogue = {
+    _dialogue: document.getElementById(cfg.dialogueElId),
+    _points: document.getElementById(cfg.pointsElId),
+    _saveForm: saveForm,
+    _onYes: null,
+
+    set onYes(fn) {
+        this._onYes = fn
+    },
+
+    init() {
+        this._saveForm.onNo = _ => this._hide()
+        this._saveForm.onYes = nick => {
+            this._onYes(nick)
+            this._hide()
+        }
+        this._saveForm.init()
+    },
+
+    show(points) {
+        this._points.innerText = points
+        this._dialogue.classList.remove(cfg.hideClass)
+    },
+
+    _hide() {
+        this._dialogue.classList.add(cfg.hideClass)
+    }
+}
+
 /** Controller for game, handling interactions between game components. */
 const gameController = {
     /** @private */
     _infoPanel: infoPanel,
     /** @private */
     _gameForm: gameForm,
+    /** @private */
+    _dialogue: dialogue,
 
     /** @private */
     _game: game,
     /** @private */
     _stopwatch: stopwatch,
+    /** @private */
+    _storage: storage,
+
+    get points() {
+        const min = this._game.min
+        const max = this._game.max
+        const steps = this._game.steps
+        const t = this._stopwatch.current / 1000
+        const k = 1000
+
+        return (max - min) / (t + steps) * k
+    },
 
     /** Initialize game controller and set up event handlers. */
     init() {
         this._setLimits(cfg.min, cfg.max)
+
+        this._dialogue.onYes = nick => this._onSave(nick)
+        this._dialogue.init()
 
         this._gameForm.onSubmit = v => this._onGuess(v);
         this._gameForm.init();
@@ -467,6 +556,7 @@ const gameController = {
     /** Stop game */
     _stop() {
         this._stopwatch.stop()
+        this._dialogue.show(this.points.toFixed(0))
     },
 
     /**
@@ -486,14 +576,8 @@ const gameController = {
         return cfg.txt[r]
     },
 
-    get points() {
-        const min = this._game.min
-        const max = this._game.max
-        const steps = this._game.steps
-        const t = this._stopwatch.current / 1000
-        const k = 1000
-
-        return (max - min) / (t + steps) * k
+    _onSave(nick) {
+        this._storage.save(nick, this.points)
     }
 }
 gameController.init()
