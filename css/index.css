@@ -15,7 +15,6 @@ input[type='number'],
 input[type="number"]:hover,
 input[type="number"]:focus {
     appearance: none;
-    outline: none;
     -moz-appearance: textfield;
 }
 
@@ -68,6 +67,7 @@ input {
     box-sizing: border-box;
     background-color: #11111C;
     transition: all 0.3s;
+    outline: none;
 }
 
 input:focus {
