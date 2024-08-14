@@ -1,6 +1,6 @@
-/** Difficulty config */
+/** Manual difficulty config */
 const dCfg = {
-    /** Advanced settings form */
+    /** Manual difficulty form */
     form: {
         /** Settigs form id */
         formElId: "settings",
