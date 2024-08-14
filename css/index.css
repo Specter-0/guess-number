@@ -136,7 +136,7 @@ input:focus {
     text-align: center;
 }
 
-#dialogue {
+.dialog {
     position: absolute;
     top: 0;
     left: 0;
@@ -148,11 +148,11 @@ input:focus {
 
 }
 
-#dialogue .container {
+.dialog .container {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-#dialogue .container .panel {
+.dialog .container .panel {
     background-color: #11111C;
 }
 
