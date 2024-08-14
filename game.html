@@ -1,49 +1,48 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Угадай число | Игра</title>
-    <link rel="stylesheet" href="css/index.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/game.css">
 </head>
 
 <body>
     <main>
-        <div class="panel">
-            <h2 class="ct">Журнал</h2>
-            <div id="log">
-            </div>
-        </div>
-        <div class="panel">
-            <h2 class="ct">Угадай число</h2>
-            <form id="game">
-                <label for="inp">Введите число</label>
-                <input class="w100" id="inp" name="inp" type="number">
-                <label for="out">Результат</label>
-                <input class="w100" id="out" name="out" disabled>
-                <input class="btn w100 lime" type="submit" value="Угадать">
-            </form>
-        </div>
-        <div class="panel">
-            <h2 class="ct">Информация</h2>
-            <p>Минимальное значение: <span id="min">0</span></p>
-            <p>Максимальное значение: <span id="max">100</span></p>
-            <p>Секундомер: <span id="stopwatch">00:00:00</span></p>
-            <p>Количество шагов: <span id="steps">0</span></p>
-        </div>
-    </main>
-    <div class="hiden dialog" id="confirm">
-        <div class="container">
-            <div class="panel">
-                <h2 class="ct">Сохранить результат?</h2>
-                <p>Вы набрали: <span id="points">0</span> очков</p>
-                <form id="save">
-                    <input class="w100" type="text" name="nick" id="nick" placeholder="Guess" maxlength="10">
-                    <input class="btn lime" id="yes" type="submit" value="Да">
-                    <input class="btn red" id="no" type="submit" value="Нет">
+        <section class="panel left-panel">
+            <div class="top-left">
+                <h2 class="ct">Угадай число</h2>
+                <form id="game">
+                    <label for="inp">Введите число</label>
+                    <input class="w100" id="inp" name="inp" type="number">
+                    <input class="btn w100 lime" type="submit" value="Угадать">
                 </form>
             </div>
+            <div class="bottom-left">
+                <h2 class="ct">Информация</h2>
+                <p>Мин <span id="min">0</span></p>
+                <p>Макс <span id="max">100</span></p>
+                <p>Секундомер <span id="stopwatch">00:00:00</span></p>
+                <p>Количество шагов: <span id="steps">0</span></p>
+            </div>
+        </section>
+        <section class="panel right-panel">
+            <div class="right">
+                <h2 class="ct">Журнал</h2>
+                <div id="log"></div>
+            </div>
+        </section>
+    </main>
+    <div class="dialog hiden" id="confirm">
+        <div class="dialog-panel">
+            <h2 class="ct">Сохранить результат?</h2>
+            <p>Вы набрали: <span id="points">0</span> очков</p>
+            <form id="save">
+                <input class="w100" type="text" name="nick" id="nick" placeholder="Guess" maxlength="10">
+                <input class="btn lime" id="yes" type="submit" value="Да">
+                <input class="btn red" id="no" type="submit" value="Нет">
+            </form>
         </div>
     </div>
     <script src="js/game.js"></script>

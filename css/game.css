@@ -1,4 +1,7 @@
 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     color: #cccccc;
     font-family: Arial, sans-serif;
     font-size: 20px;
@@ -23,41 +26,28 @@ input[type="number"]:focus {
     display: none;
 }
 
-body,
-.container {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+body {
+    height: 100%;
     background-color: #11111C;
 }
 
 main {
     display: flex;
-    gap: 0 20px;
-    flex-wrap: wrap;
     justify-content: center;
-}
-
-.w100 {
-    width: 100%;
-}
-
-.panel {
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    align-items: center;
+    gap: 0 20px;
     padding: 20px;
-    margin: 15px 0;
-    width: 300px;
-    box-shadow: 4px 8px 5px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 700px) {
+    main {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 p {
-    margin: 15px 0;
+    margin: 3px 0;
     font-weight: bold;
 }
 
@@ -65,9 +55,45 @@ p span {
     font-weight: normal;
 }
 
+.panel {
+    display: flex;
+    width: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.left-panel {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+}
+
+.top-left,
+.bottom-left,
+.right {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 4px 8px 5px rgba(0, 0, 0, 0.3);
+    gap: 20px;
+}
+
+.right {
+    height: 510px;
+}
+
 h2 {
     color: #eeeeee;
     margin-top: 0;
+}
+
+.w100 {
+    width: 100%;
 }
 
 input {
@@ -84,16 +110,6 @@ input {
 
 input:focus {
     border-color: #0b7dda;
-}
-
-#max {
-    min-width: 100px;
-}
-
-.inline {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
 }
 
 .btn {
@@ -148,58 +164,6 @@ input:focus {
     text-align: center;
 }
 
-.dialog {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    min-width: 100vw;
-    min-height: 100vh;
-    z-index: 100;
-
-}
-
-.dialog .container {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.dialog .container .panel {
-    background-color: #11111C;
-}
-
-.hiden {
-    display: none;
-}
-
-.leaderboard {
-    min-width: 300px;
-    width: auto;
-}
-
-table {
-    max-width: 300px;
-    border: #0b7dda;
-    border-collapse: collapse;
-}
-
-thead tr th {
-    text-align: center;
-}
-
-thead tr th:nth-child(2) {
-    width: 90%;
-}
-
-tbody tr th {
-    padding: 7px 0px;
-    border-top: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.filler {
-    flex-grow: 1;
-}
-
 #log {
     flex-grow: 1;
     border: 1px solid #555;
@@ -208,6 +172,35 @@ tbody tr th {
     margin-top: 10px;
     padding: 10px;
     overflow-y: auto;
-    max-height: 200px;
     scrollbar-width: none;
+}
+
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.7)
+}
+
+.dialog-panel {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    width: 300px;
+    background-color: #11111C;
+    box-shadow: 4px 8px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hiden {
+    display: none;
 }

@@ -97,11 +97,11 @@ const gCfg = {
     /** Output text */
     txt: {
         /** Display if input value equal guessed */
-        equal: "Ты угадал число!",
+        equal: "Угадал!",
         /** Display if input value greater guessed */
-        greater: "Слишком много",
+        greater: "Больше",
         /** Display if input value less guessed */
-        less: "Слишком мало"
+        less: "Меньше"
     },
     "log": {
         logElId: "log"
@@ -540,7 +540,7 @@ const log = {
 
     _create(n, result) {
         const e = document.createElement("div")
-        e.innerText = `${n}: ${result}`
+        e.innerText = `${n} ${result}`
         return e
     },
 
