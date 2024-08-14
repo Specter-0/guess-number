@@ -1,5 +1,5 @@
 /** Manual difficulty config */
-const dCfg = {
+const mDCfg = {
     /** Manual difficulty form */
     form: {
         /** Settigs form id */
@@ -19,26 +19,27 @@ const dCfg = {
         hideClass: "hiden"
     },
 }
+Object.freeze(mDCfg)
 
 const errorAlert = {
-    _alert: document.getElementById(dCfg.alert.alertElId),
+    _alert: document.getElementById(mDCfg.alert.alertElId),
 
     _onOk() {
-        this._alert.classList.add(dCfg.alert.hideClass)
+        this._alert.classList.add(mDCfg.alert.hideClass)
     },
 
     init() {
-        const okBtn = document.getElementById(dCfg.alert.okBtnElId)
+        const okBtn = document.getElementById(mDCfg.alert.okBtnElId)
         okBtn.addEventListener("click", _ => this._onOk())
     },
 
     show() {
-        this._alert.classList.remove(dCfg.alert.hideClass)
+        this._alert.classList.remove(mDCfg.alert.hideClass)
     }
 }
 
 const difficultyForm = {
-    _form: document.getElementById(dCfg.form.formElId),
+    _form: document.getElementById(mDCfg.form.formElId),
     _onError: null,
 
     set onError(fn) {
@@ -51,8 +52,8 @@ const difficultyForm = {
     },
 
     init() {
-        const min = this._form[dCfg.form.minElId]
-        const max = this._form[dCfg.form.maxElId]
+        const min = this._form[mDCfg.form.minElId]
+        const max = this._form[mDCfg.form.maxElId]
 
         this._form.addEventListener("submit", e => {
             if (min.value >= max.value) {

@@ -9,6 +9,7 @@ const lbCfg = {
     /** Hide element class */
     hideClass: "hiden"
 }
+Object.freeze(lbCfg);
 
 /** leaderboard storage */
 const storage = {
