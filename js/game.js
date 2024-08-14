@@ -5,11 +5,10 @@ const getArgs = () => location.search
 
 /**
  * Parse query parameters from URL's search string and extract `min` and `max` values.
+ * @argument {Array} args - query parameters
  * @throws {TypeError} If `min` or `max` is not valid number
  * @throws {RangeError} if `max` is less than or equal to `min`.
  * @returns {Object} Object containing `min` and `max` values.
- * @example
- * parseArgs("https://example.com?min=10&max=20") // => { min: 10, max: 20 }
  */
 const parseArgs = (args) => {
     const parse = v => Math.round(+v)
