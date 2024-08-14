@@ -183,3 +183,8 @@ tbody tr th {
     padding: 7px 0px;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
 }
+
+.filler {
+    display: block;
+    margin-top: 75px;
+}
