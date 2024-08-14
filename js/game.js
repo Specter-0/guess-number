@@ -1,3 +1,8 @@
+const getArgs = () => location.search
+    .substring(1)
+    .split('&')
+    .map(e => e.split("="));
+
 /**
  * Parse query parameters from URL's search string and extract `min` and `max` values.
  * @throws {TypeError} If `min` or `max` is not valid number
@@ -6,24 +11,20 @@
  * @example
  * parseArgs("https://example.com?min=10&max=20") // => { min: 10, max: 20 }
  */
-const parseArgs = () => {
-    const vars = location.search
-        .substring(1)
-        .split('&')
-        .map(e => e.split("="));
+const parseArgs = (args) => {
+    const parse = v => Math.round(+v)
+    const argsKeys = ["min", "max"]
 
-    // Защита от непредвиденных значений
-    const min = Math.round(+vars.find(kv => kv[0] === "min")[1])
-    const max = Math.round(+vars.find(kv => kv[0] === "max")[1])
+    const r = { min: NaN, max: NaN }
+    for (const [k, v] of args)
+        if (argsKeys.includes(k))
+            r[k] = parse(v)
 
-    if (isNaN(min)) throw TypeError("Invalid min value: ", min)
-    if (isNaN(max)) throw TypeError("Invalid max value: ", max)
-    if (max <= min) throw RangeError("Bad value range")
+    if (isNaN(r.min)) throw TypeError("Invalid min value: ", min)
+    if (isNaN(r.max)) throw TypeError("Invalid max value: ", max)
+    if (r.max <= r.min) throw RangeError("Bad value range")
 
-    return {
-        min: min,
-        max: max
-    }
+    return r
 }
 
 /** Parsed range of `min` and `max` values. */
@@ -41,7 +42,7 @@ let args = {
 };
 
 try {
-    args = parseArgs();
+    args = parseArgs(getArgs());
     Object.freeze(args)
 } catch (e) {
     const i = location.pathname.search("game.html")
@@ -233,6 +234,7 @@ const game = {
     }
 }
 
+/** Stopwatch for count game time */
 const stopwatch = {
     /**
      * @type {number}
@@ -443,6 +445,7 @@ const gameForm = {
     }
 }
 
+/** Leaderboard storage */
 const storage = {
     _nextId: 0,
 
@@ -461,6 +464,7 @@ const storage = {
     }
 }
 
+/** Save to leaderboard form */
 const saveForm = {
     /**
      * @type {HTMLFormElement}
@@ -499,6 +503,7 @@ const saveForm = {
     }
 }
 
+/** Save to leaderboard dialog */
 const saveConfirm = {
     _dialogue: document.getElementById(gCfg.sv.confirmElId),
     _points: document.getElementById(gCfg.sv.pointsElId),
