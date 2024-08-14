@@ -7,7 +7,6 @@ const dCfg = {
     },
     panel: {
         difficultyElId: "displayDifficulty",
-        minElId: "min",
         maxElId: "max",
         linkId: "play",
         defaultProfile: "easy"
@@ -15,17 +14,14 @@ const dCfg = {
     profiles: {
         easy: {
             name: "Лёгкая",
-            min: 1,
             max: 100
         },
         normal: {
             name: "Нормальная",
-            min: 1,
             max: 1000
         },
         hard: {
             name: "Сложная",
-            min: 1,
             max: 10000
         }
     }
@@ -67,15 +63,13 @@ const dForm = {
 
 const infoPanel = {
     _difficulty: document.getElementById(dCfg.panel.difficultyElId),
-    _min: document.getElementById(dCfg.panel.minElId),
     _max: document.getElementById(dCfg.panel.maxElId),
     _link: document.getElementById(dCfg.panel.linkId),
 
-    setState(difficulty, min, max) {
+    setState(difficulty, max) {
         this._difficulty.innerText = difficulty
-        this._min.innerText = min
         this._max.innerText = max
-        this._link.href = `game.html?min=${min}&max=${max}`
+        this._link.href = `game.html?max=${max}`
     }
 }
 
@@ -87,12 +81,12 @@ const dController = {
     _onChoise(v) {
         this._profile = v
         const p = dCfg.profiles[v]
-        this._infoPanel.setState(p.name, p.min, p.max)
+        this._infoPanel.setState(p.name, p.max)
     },
 
     init() {
         const p = dCfg.profiles[dCfg.panel.defaultProfile]
-        this._infoPanel.setState(p.name, p.min, p.max)
+        this._infoPanel.setState(p.name, p.max)
 
         this._dForm._onChoise = v => this._onChoise(v)
         this._dForm.init()

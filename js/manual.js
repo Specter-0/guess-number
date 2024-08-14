@@ -4,8 +4,6 @@ const mDCfg = {
     form: {
         /** Settigs form id */
         formElId: "settings",
-        /** Minimum input id */
-        minElId: "min",
         /** Maximum input id */
         maxElId: "max"
     },
@@ -52,11 +50,10 @@ const difficultyForm = {
     },
 
     init() {
-        const min = this._form[mDCfg.form.minElId]
         const max = this._form[mDCfg.form.maxElId]
 
         this._form.addEventListener("submit", e => {
-            if (min.value >= max.value) {
+            if (max.value <= 0) {
                 this._onErr(e)
             }
         })

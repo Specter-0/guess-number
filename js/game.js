@@ -4,45 +4,27 @@ const getArgs = () => location.search
     .map(e => e.split("="));
 
 /**
- * Parse query parameters from URL's search string and extract `min` and `max` values.
+ * Parse query parameters from URL's search string and extract `max` values.
  * @argument {Array} args - query parameters
- * @throws {TypeError} If `min` or `max` is not valid number
- * @throws {RangeError} if `max` is less than or equal to `min`.
- * @returns {Object} Object containing `min` and `max` values.
+ * @throws {TypeError} If `max` is not valid number
+ * @throws {RangeError} if `max` is less than or equal to 1.
+ * @returns {Object} `max` value.
  */
 const parseArgs = (args) => {
     const parse = v => Math.round(+v)
-    const argsKeys = ["min", "max"]
 
-    const r = { min: NaN, max: NaN }
-    for (const [k, v] of args)
-        if (argsKeys.includes(k))
-            r[k] = parse(v)
+    const max = parse(args.find(e => e[0] === "max")[1])
 
-    if (isNaN(r.min)) throw TypeError("Invalid min value: ", min)
-    if (isNaN(r.max)) throw TypeError("Invalid max value: ", max)
-    if (r.max <= r.min) throw RangeError("Bad value range")
+    if (isNaN(max)) throw TypeError("Invalid max value: " + max)
+    if (max <= 1) throw RangeError("Bad value range")
 
-    return r
+    return max
 }
 
-/** Parsed range of `min` and `max` values. */
-let args = {
-    /** 
-     * Minimum value of range.
-     * @type {number}
-     */
-    min: undefined,
-    /**
-     * Maximum value of range.
-     * @type {number}
-     */
-    max: undefined
-};
+let max;
 
 try {
-    args = parseArgs(getArgs());
-    Object.freeze(args)
+    max = parseArgs(getArgs());
 } catch (e) {
     const i = location.pathname.search("game.html")
     const path = location.pathname.substring(0, i)
@@ -54,9 +36,9 @@ const gCfg = {
     /** Game panel */
     gp: {
         /** Minimum game value */
-        min: args.min,
+        min: 1,
         /** Maximum game value */
-        max: args.max,
+        max: max,
         /** Game form id */
         gameFormId: "game",
         /** Player input element id */
@@ -128,7 +110,7 @@ const randInt = (min, max) =>
 
 /**
  * Number guessing game.
- * 
+ *
  * Game generates random number within specified range,
  * and player tries to guess it in as few attempts as possible.
  */
@@ -138,7 +120,7 @@ const game = {
      * @type {number}
      * @private
      */
-    _min: 0,
+    _min: 1,
 
     /**
      * Maximum value of guessing range.
@@ -580,6 +562,7 @@ const gameController = {
     /** Initialize game controller and set up event handlers. */
     init() {
         this._setLimits(gCfg.gp.min, gCfg.gp.max)
+        this._storage.init()
 
         this._dialogue.onYes = nick => this._onSave(nick)
         this._dialogue.init()
