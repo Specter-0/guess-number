@@ -53,34 +53,54 @@ try {
 const gCfg = {
     /** Game panel */
     gp: {
+        /** Minimum game value */
         min: args.min,
+        /** Maximum game value */
         max: args.max,
+        /** Game form id */
         gameFormId: "game",
+        /** Player input element id */
         inputElId: "inp",
+        /** Output element id */
         outputElId: "out"
     },
     /** Info panel */
     ip: {
+        /** Display minimum element id */
         minElId: "min",
+        /** Display maximum element id */
         maxElId: "max",
+        /** Display stopwatch element id */
         stopwatchElId: "stopwatch",
+        /** Display steps element id */
         stepsElId: "steps",
     },
-    /** Save for leaderboard */
+    /** Save confirm for leaderboard */
     sv: {
+        /** Confirm element id */
         confirmElId: "confirm",
+        /** Display points element id */
         pointsElId: "points",
+        /** Confirm form element id */
         saveFormId: "save",
+        /** Yes button element id */
         yesBtnId: "yes",
+        /** No button element id */
         noBtnId: "no",
+        /** Hide element class */
         hideClass: "hiden",
+        /** Next id key in storage */
         nextIdKey: "nextId",
+        /** Default form nickname */
         defaultNick: "Guess"
     },
     /** Output text */
     txt: {
+        /** Display if input value equal guessed */
         equal: "Ты угадал число!",
+        /** Display if input value greater guessed */
         greater: "Слишком много",
+        /** Display if input value less guessed */
         less: "Слишком мало"
     }
 }

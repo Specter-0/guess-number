@@ -1,10 +1,16 @@
+/** Leaderboard config */
 const lbCfg = {
+    /** Leaderboard body element id */
     leaderboardElId: "leaderboard",
+    /** Main leaderboard panel id */
     mainPanelElId: "main",
+    /** Empty leaderboard panel id */
     emptyPanelElId: "empty",
+    /** Hide element class */
     hideClass: "hiden"
 }
 
+/** leaderboard storage */
 const storage = {
     _extract() {
         i = 0
@@ -28,6 +34,7 @@ const storage = {
     }
 }
 
+/** Leaderboard builder */
 const leaderboard = {
     _mainPanel: document.getElementById(lbCfg.mainPanelElId),
     _emptyPanel: document.getElementById(lbCfg.emptyPanelElId),

@@ -1,13 +1,21 @@
+/** Difficulty config */
 const dCfg = {
     /** Advanced settings form */
     form: {
+        /** Settigs form id */
         formElId: "settings",
+        /** Minimum input id */
         minElId: "min",
+        /** Maximum input id */
         maxElId: "max"
     },
+    /** Erorr alert */
     alert: {
+        /** Alert element id */
         alertElId: "alert",
+        /** confirm button id */
         okBtnElId: "ok",
+        /** Hide element class */
         hideClass: "hiden"
     },
 }
