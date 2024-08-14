@@ -102,6 +102,9 @@ const gCfg = {
         greater: "Слишком много",
         /** Display if input value less guessed */
         less: "Слишком мало"
+    },
+    "log": {
+        logElId: "log"
     }
 }
 Object.freeze(gCfg)
@@ -532,6 +535,21 @@ const saveConfirm = {
     }
 }
 
+const log = {
+    _log: document.getElementById(gCfg.log.logElId),
+
+    _create(n, result) {
+        const e = document.createElement("div")
+        e.innerText = `${n}: ${result}`
+        return e
+    },
+
+    add(n, result) {
+        const e = this._create(n, result)
+        this._log.appendChild(e)
+    }
+}
+
 /** Controller for game, handling interactions between game components. */
 const gameController = {
     /** @private */
@@ -547,6 +565,7 @@ const gameController = {
     _stopwatch: stopwatch,
     /** @private */
     _storage: storage,
+    _log: log,
 
     get points() {
         const min = this._game.min
@@ -615,7 +634,9 @@ const gameController = {
         if (r === result.EQUAL) this._stop()
 
         this._infoPanel.steps = this._game.steps
-        return gCfg.txt[r]
+        const txt = gCfg.txt[r]
+        this._log.add(n, txt)
+        return txt
     },
 
     _onSave(nick) {
