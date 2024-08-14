@@ -44,7 +44,7 @@ try {
     args = parseArgs();
     Object.freeze(args)
 } catch (e) {
-    const i = location.pathname.search("game.html?")
+    const i = location.pathname.search("game.html")
     const path = location.pathname.substring(0, i)
     location.href = path + "difficulty.html"
 }
