@@ -27,7 +27,10 @@ input[type="number"]:focus {
 }
 
 body {
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background-color: #11111C;
 }
 
