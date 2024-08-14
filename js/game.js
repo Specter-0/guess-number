@@ -68,7 +68,7 @@ const gCfg = {
     },
     /** Save for leaderboard */
     sv: {
-        dialogueElId: "dialogue",
+        confirmElId: "confirm",
         pointsElId: "points",
         saveFormId: "save",
         yesBtnId: "yes",
@@ -479,8 +479,8 @@ const saveForm = {
     }
 }
 
-const dialogue = {
-    _dialogue: document.getElementById(gCfg.sv.dialogueElId),
+const saveConfirm = {
+    _dialogue: document.getElementById(gCfg.sv.confirmElId),
     _points: document.getElementById(gCfg.sv.pointsElId),
     _saveForm: saveForm,
     _onYes: null,
@@ -515,7 +515,7 @@ const gameController = {
     /** @private */
     _gameForm: gameForm,
     /** @private */
-    _dialogue: dialogue,
+    _dialogue: saveConfirm,
 
     /** @private */
     _game: game,
