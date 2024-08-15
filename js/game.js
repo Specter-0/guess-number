@@ -526,6 +526,10 @@ const log = {
     add(n, result) {
         const e = this._create(n, result)
         this._log.appendChild(e)
+    },
+
+    clear() {
+        this._log.innerHTML = ""
     }
 }
 
@@ -586,6 +590,7 @@ const gameController = {
     _reset() {
         this._stopwatch.reset()
         this._gameForm.setLimits(this._game.min, this._game.max)
+        this._log.clear()
     },
 
     /** Start game. */
