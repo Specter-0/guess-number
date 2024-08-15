@@ -65,8 +65,6 @@ const gCfg = {
         yesBtnId: "yes",
         /** No button element id */
         noBtnId: "no",
-        /** Hide element class */
-        hideClass: "hiden",
         /** Next id key in storage */
         nextIdKey: "nextId",
         /** Default form nickname */
@@ -81,9 +79,24 @@ const gCfg = {
         /** Display if input value less guessed */
         less: "Меньше"
     },
-    "log": {
+    log: {
         logElId: "log"
-    }
+    },
+    /** Back to main menu */
+    mm: {
+        /** Back to main menu button id */
+        mmBtnId: "mainMenu",
+        /** Confirm dialog element id */
+        confirmElId: "confirmBack",
+        /** Confirm form id */
+        confirmFormId: "backForm",
+        /** Yes button id */
+        yesBtnId: "byes",
+        /** No button id */
+        noBtnId: "bno"
+    },
+    /** Hide element class */
+    hideClass: "hiden",
 }
 Object.freeze(gCfg)
 
@@ -493,11 +506,11 @@ const saveConfirm = {
 
     show(points) {
         this._points.innerText = points
-        this._dialogue.classList.remove(gCfg.sv.hideClass)
+        this._dialogue.classList.remove(gCfg.hideClass)
     },
 
     _hide() {
-        this._dialogue.classList.add(gCfg.sv.hideClass)
+        this._dialogue.classList.add(gCfg.hideClass)
     }
 }
 
@@ -525,6 +538,56 @@ const log = {
     }
 }
 
+const backForm = {
+    /** @type {HTMLFormElement} */
+    _form: document.forms[gCfg.mm.confirmFormId],
+
+    _onNo: null,
+
+    set onNo(fn) {
+        this._onNo = fn
+    },
+
+    _onSubmit(e) {
+        if (e.submitter.id === gCfg.mm.yesBtnId)
+            return
+        e.preventDefault()
+        if (this._onNo === null) return
+        this._onNo()
+    },
+
+    init() {
+        this._form.addEventListener("submit", e => this._onSubmit(e))
+    },
+
+    confirmYes() {
+        const yesBtn = this._form[gCfg.mm.yesBtnId]
+        this._form.requestSubmit(yesBtn)
+    }
+}
+
+const backConfirm = {
+    _form: backForm,
+    _confirm: document.getElementById(gCfg.mm.confirmElId),
+
+    _hide() {
+        this._confirm.classList.add(gCfg.hideClass)
+    },
+
+    init() {
+        this._form._onNo = _ => this._hide()
+        this._form.init()
+    },
+
+    show() {
+        this._confirm.classList.remove(gCfg.hideClass)
+    },
+
+    confirm() {
+        this._form.confirmYes()
+    }
+}
+
 /** Controller for game, handling interactions between game components. */
 const gameController = {
     /** @private */
@@ -542,6 +605,9 @@ const gameController = {
     _storage: storage,
     _log: log,
 
+    _backBtn: document.getElementById(gCfg.mm.mmBtnId),
+    _backConfirm: backConfirm,
+
     get points() {
         const min = this._game.min
         const max = this._game.max
@@ -554,6 +620,9 @@ const gameController = {
 
     /** Initialize game controller and set up event handlers. */
     init() {
+        this._backBtn.addEventListener("click", _ => this._onBack())
+        this._backConfirm.init()
+
         this._setLimits(gCfg.gp.min, gCfg.gp.max)
         this._storage.init()
 
@@ -565,6 +634,12 @@ const gameController = {
 
         this._stopwatch.onUpdate =
             t => this._infoPanel.time = t;
+    },
+
+    _onBack() {
+        if (!this._game.isStart)
+            return this._backConfirm.confirm()
+        this._backConfirm.show()
     },
 
     /**
