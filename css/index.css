@@ -41,6 +41,10 @@ main {
     justify-content: center;
 }
 
+.col {
+    flex-direction: column;
+}
+
 .w100 {
     width: 100%;
 }
@@ -70,7 +74,7 @@ h2 {
     margin-top: 0;
 }
 
-input {
+input[type="number"] {
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -80,14 +84,11 @@ input {
     background-color: #11111C;
     transition: all 0.3s;
     outline: none;
+    min-width: 0px;
 }
 
 input:focus {
     border-color: #0b7dda;
-}
-
-#max {
-    min-width: 100px;
 }
 
 .inline {

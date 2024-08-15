@@ -10,29 +10,31 @@
 
 <body>
     <main>
-        <section class="panel left-panel">
-            <div class="top-left">
+        <div class="panel left-panel">
+            <section class="top-left">
                 <h2 class="ct">Угадай число</h2>
                 <form id="game">
                     <label for="inp">Введите число</label>
-                    <input class="w100" id="inp" name="inp" type="number">
-                    <input class="btn w100 lime" type="submit" value="Угадать">
+                    <span class="inline">
+                        <input class="w100" id="inp" name="inp" type="number">
+                        <input class="btn w100 lime" type="submit" value="Ок">
+                    </span>
                 </form>
-            </div>
-            <div class="bottom-left">
+            </section>
+            <section class="bottom-left">
                 <h2 class="ct">Информация</h2>
                 <p>Мин <span id="min">0</span></p>
                 <p>Макс <span id="max">100</span></p>
                 <p>Секундомер <span id="stopwatch">00:00:00</span></p>
                 <p>Количество шагов: <span id="steps">0</span></p>
-            </div>
-        </section>
-        <section class="panel right-panel">
-            <div class="right">
+            </section>
+        </div>
+        <div class="panel right-panel">
+            <section class="right">
                 <h2 class="ct">Журнал</h2>
                 <div id="log"></div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     <div class="dialog hiden" id="confirm">
         <div class="dialog-panel">

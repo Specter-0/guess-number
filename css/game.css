@@ -40,6 +40,7 @@ main {
     align-items: center;
     gap: 0 20px;
     padding: 20px;
+    align-items: flex-start;
 }
 
 @media screen and (max-width: 700px) {
@@ -63,14 +64,14 @@ p span {
     width: 300px;
     border-radius: 15px;
     overflow: hidden;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
+    height: calc(100vh - 40px);
 }
 
 .left-panel {
     flex-direction: column;
     gap: 20px;
-    height: auto;
 }
 
 .top-left,
@@ -87,7 +88,7 @@ p span {
 }
 
 .right {
-    height: 510px;
+    height: calc(100vh - 40px);
 }
 
 h2 {
@@ -99,7 +100,7 @@ h2 {
     width: 100%;
 }
 
-input {
+input[type="number"] {
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -109,10 +110,17 @@ input {
     background-color: #11111C;
     transition: all 0.3s;
     outline: none;
+    min-width: 0px;
 }
 
 input:focus {
     border-color: #0b7dda;
+}
+
+.inline {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
 .btn {
@@ -124,6 +132,7 @@ input:focus {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
+    flex: 1;
 }
 
 .btn:hover {

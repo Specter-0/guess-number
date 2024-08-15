@@ -9,8 +9,13 @@
 </head>
 
 <body>
-    <main>
-        <div class="leaderboard panel" id="main">
+    <main class="col">
+        <section>
+            <a href="index.html">
+                <button class="btn blue" type="button">Назад</button>
+            </a>
+        </section>
+        <section class="leaderboard panel" id="main">
             <h2 class="ct">Таблица лидеров</h2>
             <table class="w100">
                 <thead>
@@ -22,14 +27,14 @@
                 </thead>
                 <tbody id="leaderboard"></tbody>
             </table>
-        </div>
-        <div class="panel hiden" id="empty">
+        </section>
+        <section class="panel hiden" id="empty">
             <p class="ct">Здесь пусто...</p>
             <p class="ct">Сыграйте, чтобы поставить новый рекор!</p>
             <a href="difficulty.html">
                 <button type="button" class="btn w100 lime">Играть</button>
             </a>
-        </div>
+        </section>
     </main>
     <script src="js/leaderboard.js"></script>
 </body>
