@@ -211,6 +211,7 @@ input:focus {
     border-radius: 10px;
     padding: 20px;
     margin: 15px 0;
+    gap: 10px;
     width: 300px;
     background-color: #11111C;
     box-shadow: 4px 8px 5px rgba(0, 0, 0, 0.3);
