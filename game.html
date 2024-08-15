@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+
+<body>
+    <main>
+        <div class="panel left-panel">
+            <div class="w100">
+                <button class="btn blue w100" type="button" id="mainMenu">Главное меню</button>
+            </div>
+            <section class="top-left">
+                <h2 class="ct">Угадай число</h2>
+                <form id="game">
+                    <span class="inline">
+                        <input class="w100" id="inp" name="inp" type="number" placeholder="1">
+                        <input class="btn w100 lime" type="submit" value="Ок">
+                    </span>
+                </form>
+            </section>
+            <section class="bottom-left">
+                <h2 class="ct">Информация</h2>
+                <p>Максимальное число <span id="max">100</span></p>
+                <p>Время <span id="stopwatch">00:00:00</span></p>
+                <p>Шаги <span id="steps">0</span></p>
+            </section>
+        </div>
+        <div class="panel right-panel">
+            <section class="right">
+                <h2 class="ct">Журнал</h2>
+                <div class="log">
+                    <table class="w100">
+                        <tbody id="log"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    <div class="dialog hiden" id="confirm">
+        <section class="dialog-panel">
+            <h2 class="ct">Сохранить результат?</h2>
+            <p>Вы набрали <span id="points">0</span> очков</p>
+            <form id="save">
+                <input class="w100" type="text" name="nick" id="nick" placeholder="Guess" maxlength="10">
+                <input class="btn lime" id="yes" type="submit" value="Да">
+                <input class="btn red" id="no" type="submit" value="Нет">
+            </form>
+        </section>
+    </div>
+    <div class="dialog hiden" id="confirmBack">
+        <section class="dialog-panel">
+            <h2 class="ct">Выйти из игры?</h2>
+            <p>Прогресс будет потерян!</p>
+            <form action="index.html" id="backForm">
+                <span class="inline">
+                    <input class="btn red" id="byes" type="submit" value="Да">
+                    <input class="btn lime" id="bno" type="submit" value="Нет">
+                </span>
+            </form>
+        </section>
+    </div>
+    <script src="js/game.js"></script>
+</body>
+
+</html>

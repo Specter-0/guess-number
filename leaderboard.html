@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число | Таблица лидеров</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <main class="col">
+        <div>
+            <a href="index.html">
+                <button class="btn blue w100" type="button">Главное меню</button>
+            </a>
+        </div>
+        <section class="leaderboard panel" id="main">
+            <h2 class="ct">Таблица лидеров</h2>
+            <table class="w100">
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Ник</th>
+                        <th>Очки</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard"></tbody>
+            </table>
+        </section>
+        <section class="panel hiden" id="empty">
+            <p class="ct">Здесь пусто...</p>
+            <p class="ct">Сыграйте, чтобы поставить новый рекор!</p>
+            <a href="difficulty.html">
+                <button type="button" class="btn w100 lime">Играть</button>
+            </a>
+        </section>
+    </main>
+    <script src="js/leaderboard.js"></script>
+</body>
+
+</html>

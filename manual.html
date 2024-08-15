@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число | Пользовательская сложность</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <main class="col">
+        <div>
+            <a href="difficulty.html">
+                <button class="btn blue w100" type="button">Выбор сложности</button>
+            </a>
+        </div>
+        <section class="panel">
+            <h2 class="ct">Пользовательская</h2>
+            <form id="settings" autocomplete="off" action="game.html">
+                <label for="max">Максимальное число:</label>
+                <span class="inline">
+                    <input class="ii" type="number" name="max" id="max" placeholder="100" required>
+                    <input class="btn lime" type="submit" value="Ок">
+                </span>
+            </form>
+        </section>
+    </main>
+    <div class="hiden dialog" id="alert">
+        <div class="container">
+            <section class="panel">
+                <h2 class="ct">Ошибка!</h2>
+                <p class="ct">Минимальное значение должно быть меньше максимального!</p>
+                <button type="button" id="ok" class="btn lime w100">Ок</button>
+            </section>
+        </div>
+    </div>
+    <script src="js/manual.js"></script>
+</body>
+
+</html>

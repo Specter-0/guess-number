@@ -1,0 +1,214 @@
+* {
+    color: #cccccc;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    transition: all 1s;
+}
+
+/* Remove arrows for number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+/* Remove scroll bar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+body,
+.container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #11111C;
+}
+
+main {
+    display: flex;
+    gap: 0 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    width: 300px;
+    box-shadow: 4px 8px 5px rgba(0, 0, 0, 0.3);
+}
+
+p {
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+p span {
+    font-weight: normal;
+}
+
+h2 {
+    color: #eeeeee;
+    margin-top: 0;
+}
+
+input[type="number"] {
+    padding: 12px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #555;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #11111C;
+    transition: all 0.3s;
+    outline: none;
+    min-width: 0px;
+}
+
+input:focus {
+    border-color: #0b7dda;
+}
+
+.inline {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.lime {
+    background-color: #4CAF50;
+}
+
+.lime:hover {
+    background-color: #45a049;
+}
+
+.blue {
+    background-color: #2196f3;
+}
+
+.blue:hover {
+    background-color: #0b7dda;
+}
+
+.orange {
+    background-color: #ff9800;
+}
+
+.orange:hover {
+    background: #e68a00;
+}
+
+.red {
+    background-color: #f44336;
+}
+
+.red:hover {
+    background: #da190b;
+}
+
+.ct {
+    text-align: center;
+}
+
+.dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    z-index: 100;
+
+}
+
+.dialog .container {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dialog .container .panel {
+    background-color: #11111C;
+}
+
+.hiden {
+    display: none;
+}
+
+.leaderboard {
+    min-width: 300px;
+    width: auto;
+}
+
+table {
+    max-width: 300px;
+    border: #0b7dda;
+    border-collapse: collapse;
+}
+
+thead tr th {
+    text-align: center;
+}
+
+thead tr th:nth-child(2) {
+    width: 90%;
+}
+
+tbody tr th {
+    padding: 7px 0px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.filler {
+    flex-grow: 1;
+}
+
+#log {
+    flex-grow: 1;
+    border: 1px solid #555;
+    background-color: #11111C;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 200px;
+    scrollbar-width: none;
+}

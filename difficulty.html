@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число | Выбор сложности</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <main>
+        <section class="panel">
+            <h2 class="ct">Выберите сложность</h2>
+            <form id="difficulty">
+                <input type="submit" class="btn lime w100" id="easy" value="Лёгкая">
+                <input type="submit" class="btn orange w100" id="normal" value="Нормальная">
+                <input type="submit" class="btn red w100" id="hard" value="Сложная">
+            </form>
+            <a href="manual.html">
+                <button type="button" class="btn w100" id="manual">Пользовательская</button>
+            </a>
+        </section>
+        <section class="panel">
+            <h2 class="ct">Информация</h2>
+            <p>Сложность <span id="displayDifficulty">Лёгкая</span></p>
+            <p>Макс. число <span id="max">100</span></p>
+            <span class="filler"></span>
+            <a href="game.html?max=100" id="play">
+                <button type="button" class="btn w100 lime">Играть</button>
+            </a>
+        </section>
+    </main>
+    <script src="js/difficulty.js"></script>
+</body>
+
+</html>
