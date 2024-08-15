@@ -46,8 +46,6 @@ const gCfg = {
     },
     /** Info panel */
     ip: {
-        /** Display minimum element id */
-        minElId: "min",
         /** Display maximum element id */
         maxElId: "max",
         /** Display stopwatch element id */
@@ -313,11 +311,6 @@ const infoPanel = {
      * @type {HTMLElement}
      * @private
      */
-    _min: document.getElementById(gCfg.ip.minElId),
-    /**
-     * @type {HTMLElement}
-     * @private
-     */
     _max: document.getElementById(gCfg.ip.maxElId),
     /**
      * @type {HTMLElement}
@@ -351,8 +344,7 @@ const infoPanel = {
      * @param {number} min - Minimum value to display.
      * @param {number} max - Maximum value to display.
      */
-    setLimits(min, max) {
-        this._min.innerText = min
+    setLimits(max) {
         this._max.innerText = max
     }
 }
@@ -582,7 +574,7 @@ const gameController = {
      */
     _setLimits(min, max) {
         this._game.setLimits(min, max);
-        this._infoPanel.setLimits(min, max)
+        this._infoPanel.setLimits(max);
         this._gameForm.setLimits(min, max)
     },
 
