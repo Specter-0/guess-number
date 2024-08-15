@@ -43,8 +43,6 @@ const gCfg = {
         gameFormId: "game",
         /** Player input element id */
         inputElId: "inp",
-        /** Output element id */
-        outputElId: "out"
     },
     /** Info panel */
     ip: {
@@ -392,8 +390,7 @@ const gameForm = {
 
         const inp = this._form[gCfg.gp.inputElId].value
         if (!inp) return
-        this._form[gCfg.gp.outputElId].value =
-            this._onSubmit(inp)
+        this._onSubmit(inp)
     },
 
     /** Initialize form. */
@@ -416,11 +413,6 @@ const gameForm = {
     /** Clear input field value. */
     clrInput() {
         this._form[gCfg.gp.inputElId].value = ""
-    },
-
-    /** Clear output field value. */
-    clrOutput() {
-        this._form[gCfg.gp.outputElId].value = ""
     },
 
     /** Focus input field. */
