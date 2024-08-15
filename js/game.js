@@ -517,7 +517,7 @@ const log = {
 
     add(n, result) {
         const e = this._create(n, result)
-        this._log.appendChild(e)
+        this._log.insertBefore(e, this._log.firstChild)
     },
 
     clear() {
