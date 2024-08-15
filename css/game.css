@@ -100,7 +100,7 @@ h2 {
     width: 100%;
 }
 
-input[type="number"] {
+input {
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -110,6 +110,9 @@ input[type="number"] {
     background-color: #11111C;
     transition: all 0.3s;
     outline: none;
+}
+
+input[type="number"] {
     min-width: 0px;
 }
 
