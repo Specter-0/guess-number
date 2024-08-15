@@ -176,7 +176,7 @@ input:focus {
     text-align: center;
 }
 
-#log {
+.log {
     flex-grow: 1;
     border: 1px solid #555;
     background-color: #11111C;
@@ -215,4 +215,23 @@ input:focus {
 
 .hiden {
     display: none;
+}
+
+table {
+    max-width: 300px;
+    border: #0b7dda;
+    border-collapse: collapse;
+}
+
+tbody tr th {
+    padding: 5px;
+    text-align: left;
+}
+
+tbody tr th:nth-child(1) {
+    text-align: right;
+}
+
+tbody tr th:nth-child(2) {
+    width: 90%;
 }

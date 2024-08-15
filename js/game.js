@@ -520,9 +520,14 @@ const saveConfirm = {
 const log = {
     _log: document.getElementById(gCfg.log.logElId),
 
-    _create(n, result) {
-        const e = document.createElement("div")
-        e.innerText = `${n} ${result}`
+    _create(num, result) {
+        const e = document.createElement("tr")
+        const n = document.createElement("th")
+        n.innerText = num
+        const r = document.createElement("th")
+        r.innerHTML = result
+        e.appendChild(n)
+        e.appendChild(r)
         return e
     },
 
